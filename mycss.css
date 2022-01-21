@@ -1,0 +1,51 @@
+	/*  displays cards in the container so that they sit in rows and are centered  */
+	a{
+		color: white;
+		 text-decoration: none;
+	}
+	
+	.cardHolder  {
+		
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+		flex-wrap: wrap;
+		
+		
+	}
+	/*  keeps them to the left of the container, solid red border and outlines the margins */
+	.card{
+		float:left;
+		border: 3px solid red;
+		margin: 10px 44px 30px;
+	}
+	/*floats image to the right */
+	.navright{
+		float: right;
+	}
+	/* creates diagonal design in pink and white*/
+	.design{
+		background: repeating-linear-gradient(
+			  45deg,
+			  #ca0c0c4f,
+			  #ca0c0c4f 10px,
+			  #fbfbfb 10px,
+			  #fbfbfb 20px
+			);
+	}
+
+	/*  Sets colour to red and text to black used for buttons*/
+	.button {
+		background-color: red;
+		color: black;
+	}
+	/* colour of the nav bar */
+	#navBarColour{
+		background-color: #ca0c0c;
+		color:white;
+	}
+	/* colour of the jumbotron background */
+	#jumboColour{
+		background-color: #ca0c0c;
+		color:white;
+	}
