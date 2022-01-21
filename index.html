@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>G00330394</title>
+	<!-- Link the CSS file -->
+	<link rel="stylesheet" type="text/css" href ="mycss.css">
+	
+  </head>
+  
+  <body class = "design">
+		<!--Created a modal for the login details -->
+  	<div class="modal " id = "loginModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content button">
+			  <div class="modal-header">
+				<h2 class="modal-title"><img src="images/sweetIcon.png" alt=" Hard candy" class="sweetmargin" width="30px">Login<img src="images/sweetIcon.png" class="sweetmargin" width="30px" ></h2>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+				<div class="modal-body" id = "loggedIn">
+					<form>
+						<div class="form-group">
+							<label for="userEmail">Email address:</label>
+							<input type="email" class="form-control"  id="userEmail" aria-describedby="emailHelp" placeholder="Enter email">
+							<small id="emailHelp" class="form-text ">Example: user@user.ie</small>
+						</div>
+						<div class="form-group">
+							<label for="userPassword">Password:</label>
+							<input type="password" class="form-control" id="userPassword" placeholder="Password">
+						</div>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-danger" onclick= "login()">Submit</button>
+				  
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+		
+	<!-- navBar contains two buttons with centered text and matching icons on either end-->
+	<nav class="navbar centered sticky-top" id="navBarColour">
+		<img src="images/sweetIcon.png" class="sweetmargin" width="30px" >
+		<!-- onclick of the sweet treats button calls function which displays the products -->
+		<button type="button" class="btn  ml-2 button "><a href="testingPhp.php">Sweet Treats</a></button>
+		<h2>Sweet Shack</h2>
+		<!-- when cart button is pressed it calls to the cart modal -->
+		<button class=" button btn ml-2 my-sm-0 navright"><img src="images/shopping-cart.png" height="19px" data-toggle="modal" data-target="#cartModal">  Cart </button>
+		<img src="images/sweetIcon.png" class="sweetmargin navright" width="30px" >
+		
+	</nav>
+	
+	<!-- carosel in a container displays 3 different photos -->
+	<div class = "container">
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+		  <div class="carousel-inner">
+			<div class="carousel-item active">
+			  <img class="d-block w-100" height= "400px"src="images/sweets.png" alt="First slide">
+			</div>
+			<div class="carousel-item">
+			  <img class="d-block w-100" height="400px" src="images/sweets3.jpg" alt="Second slide">
+			</div>
+			<div class="carousel-item">
+			  <img class="d-block w-100" height="400px" src="images/sweets4.jpg" alt="Third slide">
+			</div>
+		  </div>
+		</div>
+	</div>
+	
+	<!-- Jumbotron -->
+	<div class = "container">
+		<div class="jumbotron text-center backcolour" id ="jumboColour">
+			<h1 class="display-4">Welcome to the Sweet Shack!</h1>
+			<p class="lead">If you've got a sweet tooth, you're in the right place.</p>
+			<hr class="my-4">
+			<p id = "jumboMes">Make sure you login before your purchase!!</p>
+		  <!--  login button calls for the login modal to appear-->
+			<button type="button" class="btn button" id="logButton"  data-toggle="modal" data-target="#loginModal">Login</button>
+		</div>
+	</div>
+	
+	<!-- This is the code for the cart modal-->
+	<!-- https://github.com/akashyap2013/Advance_Shopping_cart/blob/master/index.php -->
+	<div class="modal " id = "cartModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog button" role="document">
+			<div class ="modal-header">
+				<br/>  
+				<h3>Order Details</h3>  
+				<!--close button in modal header -->
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id = "innerModal">
+				<div class="table-responsive"> 
+				<!--table is created to house the cart information  -->				
+					<table class="table table-bordered">  
+						<tr>  
+							<th width="40%">Item Name</th>  
+							<th width="10%">Quantity</th>  
+							<th width="20%">Price</th>  
+							<th width="20%">Total</th>  
+						</tr>  
+						<?php 
+							$total = 0; 					
+						//shopping cart is an object storing the items details that are to be purchased
+						 if(!empty($_SESSION["shopping_cart"])){  
+							 
+							//loops over each in the array
+							foreach($_SESSION["shopping_cart"] as $keys => $values){  
+						?>  
+								 <tr>  
+									<td><?php echo $values["item_name"]; ?></td>  
+									<td><?php echo $values["item_quantity"]; ?></td>  
+									<td>€ <?php echo $values["item_price"]; ?></td>  
+									<td>€ <?php echo number_format($values["item_quantity"] * $values["item_price"], 2); ?></td>  
+										   
+								 </tr>  
+								<?php 
+								//calculates the total price 
+									$total = $total + ($values["item_quantity"] * $values["item_price"]);
+								}
+						 
+								?>  
+								<tr>  
+									<td colspan="3" align="left">Total</td>  
+									<td align="left">€ <?php echo number_format($total , 2); ?></td>  
+									
+								</tr> 
+								<?php
+						 }
+								?>
+								
+									  
+									  
+									
+					</table>
+					<!-- button for purchase disabled until loggedIn-->
+					<button type="submit" class="btn btn-danger btn-block"  data-toggle ="tooltip" data-placement="bottom" title="Tooltip on bottom">Purchase</button>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+						  
+	<?php
+		
+							  // frees data and closes connection
+									mysqli_free_result($result);
+									mysqli_close($connection);
+		 
+	?>
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	
+	
+		//unsuccessfully tried to store a value of logged in in storage so as to create the changes below
+		<!--
+		<script> var loggedOn = localStorage.loggedOn;
+		
+		if(loggedOn == "true"){
+			document.getElementById("logButton").style.visability = "hidden";
+			document,getElementById("jumboMes").innerHTML = "CONGRATS...you've logged in!"
+		}
+		function login(){
+		var	email = document.getElementById("userEmail").value;
+		var password = document.getElementById("userPassword").value;
+		
+		if (email == "user@user.ie" && password == "pass"){
+			document.getElementById("logButton").style.visability = "hidden";
+			document,getElementById("jumboMes").innerHTML = "CONGRATS...you've logged in!"
+			localStorage.set = "true";
+			
+		}else{
+			alert("Incorrect Email/Password");
+		}
+		}
+		
+		alert(loggedOn);
+	</script>
+	-->
+  </body>
+</html>
